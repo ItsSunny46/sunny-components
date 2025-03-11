@@ -11,8 +11,7 @@ jobs:
     steps:
       - run: |
           TITLE="${{ github.event.pull_request.title }}"
-          IFS=':' read -r PREFIX REST <<< "$TITLE"
-          if [[ "$PREFIX" =~ (add|change|util|doc|config)]] then
+          if [[ "Title" =~ ^(add|change|util|doc|config): ]] then
             echo "Title prefix is correct"
             exit 0
           else 
