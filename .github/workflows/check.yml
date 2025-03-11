@@ -1,0 +1,32 @@
+name: PR pre-merge check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  title-check:
+    name: Check PR title for correct prefix
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          echo "PR title is \"$TITLE\""
+          if [[ $TITLE =~ ^(add|change|util|doc|config): ]] then
+            echo "Title prefix is correct"
+            exit 0
+          else 
+            echo "Error: PR title must start with 'add:', 'change:', 'util:', 'doc:', or 'config:'"
+            exit 1
+          fi
+  linter-check:
+    name: ESLint check
+    needs: title-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm run lint
