@@ -11,6 +11,7 @@ jobs:
     steps:
       - run: |
           TITLE="${{ github.event.pull_request.title }}"
+          echo $TITLE
           if [[ "Title" =~ ^(add|change|util|doc|config): ]] then
             echo "Title prefix is correct"
             exit 0
