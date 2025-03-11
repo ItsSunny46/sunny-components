@@ -20,6 +20,7 @@ jobs:
             exit 1
           fi
   linter-check:
+    name: ESLint check
     needs: title-check
     runs-on: ubuntu-latest
     steps:
