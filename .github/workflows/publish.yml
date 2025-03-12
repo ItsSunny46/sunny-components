@@ -38,6 +38,11 @@ jobs:
             echo "VERSION_BUMP=skip" >> $GITHUB_ENV
           fi
 
+      - name: Report title and version bump
+        run: |
+          echo "Title: $TITLE"
+          echo "Version Bump: $VERSION_BUMP"
+
       - name: Bump Version
         if: env.VERSION_BUMP != 'skip'
         run: npm version $VERSION_BUMP --no-git-tag-version
