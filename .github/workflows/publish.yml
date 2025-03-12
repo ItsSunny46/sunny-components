@@ -28,6 +28,7 @@ jobs:
         id: check_prefix
         run: |
           TITLE=$(git log -1 --pretty=%B | tail -n 1)
+          echo "PR_TITLE=$TITLE" >> $GITHUB_ENV
           if [[ "$TITLE" =~ ^(change): ]]; then
             echo "VERSION_BUMP=major" >> $GITHUB_ENV
           elif [[ "$TITLE" =~ ^(add): ]]; then
@@ -37,15 +38,11 @@ jobs:
           else
             echo "VERSION_BUMP=skip" >> $GITHUB_ENV
           fi
-          echo "Title: $TITLE"
-          echo "Version Bump in local var: $VERSION_BUMP"
-          echo "Version Bump in ENV: ${{ env.VERSION_BUMP }}"
 
-      - name: Report vars (temporary)
+      - name: Report working variables
         run: |
-          echo "Title in report job: $TITLE"
-          echo "Version Bump in local var in report job: $VERSION_BUMP"
-          echo "Version Bump in ENV in report job: ${{ env.VERSION_BUMP }}"
+          echo "Title: ${{ env.PR_TITLE }}"
+          echo "Version Bump: ${{ env.VERSION_BUMP }}"
 
       - name: Bump Version
         if: env.VERSION_BUMP != 'skip'
