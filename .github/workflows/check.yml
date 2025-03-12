@@ -16,7 +16,7 @@ jobs:
             echo "Title prefix is correct"
             exit 0
           else 
-            echo "Error: PR title must start with 'add:', 'change:', 'fix:' 'util:', 'doc:', or 'config:'"
+            echo "Error: PR title must start with 'add:', 'change:', 'fix:', 'util:', 'doc:', or 'config:'"
             exit 1
           fi
   linter-check:
