@@ -27,7 +27,7 @@ jobs:
       - name: Determine Version Bump
         id: check_prefix
         run: |
-          TITLE=$(git log -1 --pretty=%B)
+          TITLE=$(git log -1 --pretty=%B | tail -n 1)
           if [[ "$TITLE" =~ ^(change): ]]; then
             echo "VERSION_BUMP=major" >> $GITHUB_ENV
           elif [[ "$TITLE" =~ ^(add): ]]; then
