@@ -38,7 +38,14 @@ jobs:
             echo "VERSION_BUMP=skip" >> $GITHUB_ENV
           fi
           echo "Title: $TITLE"
-          echo "Version Bump: ${{ env.VERSION_BUMP }}"
+          echo "Version Bump in local var: $VERSION_BUMP"
+          echo "Version Bump in ENV: ${{ env.VERSION_BUMP }}"
+
+      - name: Report vars (temporary)
+        run: |
+          echo "Title in report job: $TITLE"
+          echo "Version Bump in local var in report job: $VERSION_BUMP"
+          echo "Version Bump in ENV in report job: ${{ env.VERSION_BUMP }}"
 
       - name: Bump Version
         if: env.VERSION_BUMP != 'skip'
