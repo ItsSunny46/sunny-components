@@ -49,6 +49,12 @@ jobs:
         if: env.VERSION_BUMP != 'skip'
         run: npm version $VERSION_BUMP --no-git-tag-version
 
+      - name: Verify NPM Auth
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
         run: npm publish --access public
