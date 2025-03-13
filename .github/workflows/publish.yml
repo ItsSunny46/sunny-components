@@ -19,6 +19,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           scope: '@sasha_gurys'
 
+      - name: Regenerate .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_token }}" > ~/.npmrc
+
       - name: Install Dependencies
         run: npm ci
 
