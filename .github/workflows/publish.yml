@@ -57,6 +57,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Debug Token Value
+        run: echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
 
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
