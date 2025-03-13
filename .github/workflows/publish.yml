@@ -20,7 +20,7 @@ jobs:
           scope: '@sasha_gurys'
 
       - name: Regenerate .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_token }}" > ~/.npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Install Dependencies
         run: npm ci
