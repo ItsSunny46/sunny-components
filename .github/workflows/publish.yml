@@ -53,6 +53,15 @@ jobs:
         if: env.VERSION_BUMP != 'skip'
         run: npm version $VERSION_BUMP --no-git-tag-version
 
+      - name: Debug Environment
+        run: |
+          echo "🔎 Current Directory:"
+          pwd
+          echo "🔎 Available Files:"
+          ls -la
+          echo "🔎 .npmrc Contents:"
+          cat ~/.npmrc  
+
       - name: Verify NPM Auth
         run: npm whoami
         env:
