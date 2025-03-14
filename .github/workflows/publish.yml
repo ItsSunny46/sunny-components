@@ -53,6 +53,9 @@ jobs:
         if: env.VERSION_BUMP != 'skip'
         run: npm version $VERSION_BUMP --no-git-tag-version
 
+      - name: Copy Updated package.json
+        run: cp package.json ./dist/
+
       - name: Debug Environment
         run: |
           echo "🔎 Current Directory:"
