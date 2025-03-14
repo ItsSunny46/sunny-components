@@ -19,9 +19,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@sasha_gurys'
 
-      - name: Regenerate .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Install Dependencies
         run: npm ci
 
@@ -66,9 +63,9 @@ jobs:
 
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --loglevel verbose
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push New Version Tag
         if: env.VERSION_BUMP != 'skip'
