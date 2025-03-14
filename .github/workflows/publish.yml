@@ -67,11 +67,6 @@ jobs:
           ls -R ./dist
           cat ./dist/package.json
 
-      - name: Verify NPM Auth
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
         run: npm publish --access public
