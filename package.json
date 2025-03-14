@@ -1,5 +1,5 @@
 {
-  "name": "sunny-components",
+  "name": "@sasha_gurys/sunny-components",
   "version": "0.0.2",
   "description": "A personal component library",
   "main": "dist/index.cjs.js",
