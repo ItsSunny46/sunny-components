@@ -30,8 +30,8 @@ const Button: React.FC<ButtonProps> = ({
   size ='m',
   bgColor = 'black',
   textColor = 'white',
-  hoverBgColor = 'darkgray',
-  hoverTextColor = 'lightgray',
+  hoverBgColor = 'lightgray',
+  hoverTextColor = 'darkgray',
 }) => {
   const content = (
     <>
