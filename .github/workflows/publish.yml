@@ -66,9 +66,9 @@ jobs:
 
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
-        run: npm publish --loglevel verbose
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
 
       - name: Push New Version Tag
         if: env.VERSION_BUMP != 'skip'
