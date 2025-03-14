@@ -60,7 +60,9 @@ jobs:
           echo "🔎 Available Files:"
           ls -la
           echo "🔎 .npmrc Contents:"
-          cat ~/.npmrc  
+          cat ~/.npmrc
+          ls -R ./dist
+          cat ./dist/package.json
 
       - name: Verify NPM Auth
         run: npm whoami
