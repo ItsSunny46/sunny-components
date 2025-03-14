@@ -49,16 +49,9 @@ jobs:
           echo "Version Bump: ${{ env.VERSION_BUMP }}"
           echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
 
-      - name: Force NPM Login
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-
       - name: Bump Version
         if: env.VERSION_BUMP != 'skip'
         run: npm version $VERSION_BUMP --no-git-tag-version
-
-      - name: Copy Updated package.json
-        run: cp package.json ./dist/
 
       - name: Debug Environment
         run: |
@@ -69,7 +62,7 @@ jobs:
           echo "🔎 .npmrc Contents:"
           cat ~/.npmrc
           ls -R ./dist
-          cat ./dist/package.json
+          cat ./package.json
 
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
