@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org/'
+          registry-url: 'https://registry.npmjs.org'
           scope: '@sasha_gurys'
 
       - name: Regenerate .npmrc
@@ -73,7 +73,7 @@ jobs:
 
       - name: Publish to NPM
         if: env.VERSION_BUMP != 'skip'
-        run: npm publish --access public
+        run: npm publish --access public --loglevel verbose
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
