@@ -49,6 +49,10 @@ jobs:
           echo "Version Bump: ${{ env.VERSION_BUMP }}"
           echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
 
+      - name: Force NPM Login
+        run: |
+          echo -e "${{ secrets.NPM_USER }}\n${{ secrets.NPM_PASS }}\n${{ secrets.NPM_EMAIL }}" | npm login --registry=https://registry.npmjs.org/
+
       - name: Bump Version
         if: env.VERSION_BUMP != 'skip'
         run: npm version $VERSION_BUMP --no-git-tag-version
