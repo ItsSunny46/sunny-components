@@ -78,4 +78,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag v$(node -p "require('./package.json').version")
-          git push origin v$(node -p "require('./package.json').version")
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/ItsSunny46/sunny-components.git v$(node -p "require('./package.json').version")
+     
