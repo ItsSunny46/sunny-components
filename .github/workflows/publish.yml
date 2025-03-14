@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Publish package to NPM
 
 on:
   push:
@@ -51,7 +51,7 @@ jobs:
 
       - name: Force NPM Login
         run: |
-          echo -e "${{ secrets.NPM_USER }}\n${{ secrets.NPM_PASS }}\n${{ secrets.NPM_EMAIL }}" | npm login --registry=https://registry.npmjs.org/
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
 
       - name: Bump Version
         if: env.VERSION_BUMP != 'skip'
