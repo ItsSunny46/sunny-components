@@ -79,4 +79,14 @@ jobs:
           git config user.email "github-actions@github.com"
           git tag v$(node -p "require('./package.json').version")
           git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/ItsSunny46/sunny-components.git v$(node -p "require('./package.json').version")
-     
+
+      - name: Push Version Bump to Main
+        if: env.VERSION_BUMP != 'skip'
+        run: |
+          if git diff --exit-code --quiet; then
+          echo "No changes to commit"
+          else
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to $(node -p "require('./package.json').version")"
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/ItsSunny46/sunny-components.git main
+          fi
