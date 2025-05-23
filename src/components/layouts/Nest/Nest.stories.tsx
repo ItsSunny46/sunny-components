@@ -2,11 +2,32 @@ import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 
 import Nest from './Nest';
+import { BoxStylesParams } from '../../../styles/boxStyles';
+import { boxStyleArgTypes } from '../../../stories';
 
-const meta: Meta<typeof Nest> = {
+type StoryProps = React.ComponentProps<typeof Nest> & BoxStylesParams;
+
+const meta: Meta<StoryProps> = {
   component: Nest,
-  render: (args ) => (
-    <Nest {...args}>
+  argTypes: { ...boxStyleArgTypes },
+  render: ({
+    padding,
+    bgColor,
+    borderColor,
+    borderRadius,
+    borderSize,
+    ...args
+  }) => (
+    <Nest
+      {...args}
+      boxStyles={{
+        padding: padding,
+        bgColor: bgColor,
+        borderColor: borderColor,
+        borderRadius: borderRadius,
+        borderSize: borderSize,
+      }}
+    >
       <div
         style={{
           display: 'flex',

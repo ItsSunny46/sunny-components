@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { hiveStyles, hiveCellStyles } from './Hive.css';
-
-interface HiveProps extends React.PropsWithChildren {
-  maxHiveWidth?: string;
-  space?: string;
-  minCellWidth?: string;
-  columnsCount?: number;
-  squareCells?: boolean;
-}
+import { HiveProps } from './Hive.types';
+import { getBoxStyles, getBoxVars } from '../../../styles/boxStyles';
 
 const Hive: React.FC<HiveProps> = ({
   children,
@@ -16,7 +10,11 @@ const Hive: React.FC<HiveProps> = ({
   columnsCount,
   minCellWidth,
   squareCells,
+  boxStyles,
 }) => {
+  const hasBoxStyles = !!boxStyles;
+  const boxVars = hasBoxStyles ? getBoxVars(boxStyles) : {};
+
   return (
     <div
       style={
@@ -25,9 +23,10 @@ const Hive: React.FC<HiveProps> = ({
           '--space': space,
           '--minCellWidth': minCellWidth,
           '--columnsCount': columnsCount || 'auto-fit',
+          ...boxVars,
         } as React.CSSProperties
       }
-      className={hiveStyles({ structure: columnsCount ? 'rigid' : 'fluid' })}
+      className={`${hiveStyles({ structure: columnsCount ? 'rigid' : 'fluid' })} ${getBoxStyles(hasBoxStyles)}`}
     >
       {squareCells
         ? React.Children.map(children, (child, i) => {

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { riverStyles } from './River.css';
-import { FlexAlignType } from '../../../types';
+import { RiverStyles } from './River.css';
+import { RiverProps } from './River.types';
+import { getBoxStyles, getBoxVars } from '../../../styles/boxStyles';
 
 const normalizeFlow = (
   flow: 'h' | 'v' | 'horizontal' | 'vertical',
@@ -15,31 +16,22 @@ const normalizeFlow = (
   return flowMap[flow];
 };
 
-interface RiverProps extends React.PropsWithChildren {
-  flow?: 'v' | 'h' | 'vertical' | 'horizontal';
-  align?: FlexAlignType;
-  space?: string;
-  boxStyles?: {
-    bgColor?: string;
-    padding?: string;
-    border?: string;
-    borderRadius?: string;
-  };
-}
-
 const River: React.FC<RiverProps> = ({
   children,
   flow = 'h',
   align = 'center',
   space,
-  // boxStyles,
+  boxStyles,
 }) => {
   const normalizedFLow = normalizeFlow(flow);
 
+  const hasBoxStyles = !!boxStyles;
+  const boxVars = hasBoxStyles ? getBoxVars(boxStyles) : {};
+
   return (
     <div
-      style={{ '--space': space } as React.CSSProperties}
-      className={riverStyles({ flow: normalizedFLow, align })}
+      style={{ '--space': space, ...boxVars } as React.CSSProperties}
+      className={`${RiverStyles({ flow: normalizedFLow, align })} ${getBoxStyles(hasBoxStyles)}`}
     >
       {children}
     </div>

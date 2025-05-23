@@ -1,6 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 
-const riverStyles = recipe({
+const RiverStyles = recipe({
   base: {
     display: 'flex',
     inlineSize: '100%',
@@ -26,4 +26,4 @@ const riverStyles = recipe({
   },
 });
 
-export { riverStyles };
+export { RiverStyles };
