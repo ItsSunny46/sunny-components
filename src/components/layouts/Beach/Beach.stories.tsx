@@ -2,14 +2,38 @@ import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 
 import Beach from './Beach';
+import { boxStyleArgTypes } from '../../../stories';
+import { BoxStylesParams } from '../../../styles/boxStyles';
 
-const meta: Meta<typeof Beach> = {
+type StoryProps = React.ComponentProps<typeof Beach> & BoxStylesParams;
+
+const meta: Meta<StoryProps> = {
   component: Beach,
+  argTypes: { ...boxStyleArgTypes },
+  render: ({
+    padding,
+    bgColor,
+    borderColor,
+    borderRadius,
+    borderSize,
+    ...args
+  }) => (
+    <Beach
+      {...args}
+      boxStyles={{
+        padding: padding,
+        bgColor: bgColor,
+        borderColor: borderColor,
+        borderRadius: borderRadius,
+        borderSize: borderSize,
+      }}
+    />
+  ),
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Beach>;
+type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
   args: {

@@ -2,15 +2,35 @@ import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 
 import Hive from './Hive';
+import { BoxStylesParams } from '../../../styles/boxStyles';
+import { boxStyleArgTypes } from '../../../stories';
 
 type StoryProps = React.ComponentProps<typeof Hive> & {
   itemsAmount: number;
-};
+} & BoxStylesParams;
 
 const meta: Meta<StoryProps> = {
   component: Hive,
-  render: ({ itemsAmount = 10, ...args }) => (
-    <Hive {...args}>
+  argTypes: { ...boxStyleArgTypes },
+  render: ({
+    padding,
+    bgColor,
+    borderColor,
+    borderRadius,
+    borderSize,
+    itemsAmount = 10,
+    ...args
+  }) => (
+    <Hive
+      {...args}
+      boxStyles={{
+        padding: padding,
+        bgColor: bgColor,
+        borderColor: borderColor,
+        borderRadius: borderRadius,
+        borderSize: borderSize,
+      }}
+    >
       {Array.from({ length: itemsAmount }, (_, i) => (
         <div
           key={i}

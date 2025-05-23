@@ -1,14 +1,7 @@
 import * as React from 'react';
 import { beachStyles, sandStyles, waterStyles } from './Beach.css';
-
-interface BeachProps {
-  space: string;
-  sandWidth: string;
-  shoreSide: 'left' | 'right';
-  riverMinWidth: string;
-  sandSlot: React.ReactNode;
-  waterSlot: React.ReactNode;
-}
+import { BeachProps } from './Beach.types';
+import { getBoxStyles, getBoxVars } from '../../../styles/boxStyles';
 
 const Beach: React.FC<BeachProps> = ({
   shoreSide,
@@ -17,31 +10,39 @@ const Beach: React.FC<BeachProps> = ({
   waterSlot,
   riverMinWidth,
   space,
-}) => (
-  <div style={{ '--space': space } as React.CSSProperties} className={beachStyles}>
-    {shoreSide === 'left' && (
-      <div
-        style={{ '--sandWidth': sandWidth } as React.CSSProperties}
-        className={sandStyles}
-      >
-        {sandSlot}
-      </div>
-    )}
+  boxStyles,
+}) => {
+  const hasBoxStyles = !!boxStyles;
+  const boxVars = hasBoxStyles ? getBoxVars(boxStyles) : {};
+  return (
     <div
-      style={{ '--riverMinWidth': riverMinWidth } as React.CSSProperties}
-      className={waterStyles}
+      style={{ '--space': space, ...boxVars } as React.CSSProperties}
+      className={`${beachStyles} ${getBoxStyles(hasBoxStyles)}`}
     >
-      {waterSlot}
-    </div>
-    {shoreSide === 'right' && (
+      {shoreSide === 'left' && (
+        <div
+          style={{ '--sandWidth': sandWidth } as React.CSSProperties}
+          className={sandStyles}
+        >
+          {sandSlot}
+        </div>
+      )}
       <div
-        style={{ '--sandWidth': sandWidth } as React.CSSProperties}
-        className={sandStyles}
+        style={{ '--riverMinWidth': riverMinWidth } as React.CSSProperties}
+        className={waterStyles}
       >
-        {sandSlot}
+        {waterSlot}
       </div>
-    )}
-  </div>
-);
+      {shoreSide === 'right' && (
+        <div
+          style={{ '--sandWidth': sandWidth } as React.CSSProperties}
+          className={sandStyles}
+        >
+          {sandSlot}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Beach;

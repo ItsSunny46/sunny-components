@@ -2,13 +2,35 @@ import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 
 import River from './River';
+import { BoxStylesParams } from '../../../styles/boxStyles';
+import { boxStyleArgTypes } from '../../../stories';
 
-type StoryProps = React.ComponentProps<typeof River> & { itemsAmount: number };
+type StoryProps = React.ComponentProps<typeof River> & {
+  itemsAmount: number;
+} & BoxStylesParams;
 
 const meta: Meta<StoryProps> = {
   component: River,
-  render: ({ itemsAmount = 10, ...args }) => (
-    <River {...args}>
+  argTypes: { ...boxStyleArgTypes },
+  render: ({
+    itemsAmount = 10,
+    padding,
+    bgColor,
+    borderColor,
+    borderRadius,
+    borderSize,
+    ...args
+  }) => (
+    <River
+      {...args}
+      boxStyles={{
+        padding: padding,
+        bgColor: bgColor,
+        borderColor: borderColor,
+        borderRadius: borderRadius,
+        borderSize: borderSize,
+      }}
+    >
       {Array.from({ length: itemsAmount }, (_, i) => (
         <p key={i}>Item {i + 1}</p>
       ))}
